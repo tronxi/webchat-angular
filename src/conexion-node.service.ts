@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class ConexionNodeService {
   private url = 'http://raspberrytronxi.ddns.net:8000/webchat_server_node';
+  //private url = 'http://192.168.0.5:8000/webchat_server_node';
   constructor(private http: HttpClient) { }
 
   login(usuario: string, pass: string) {

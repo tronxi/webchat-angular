@@ -10,9 +10,15 @@ import { Router } from '@angular/router';
 export class ConversacionComponent implements OnInit {
   @Input() nombre: string;
   @Input() estado: string;
+  mostrarEstado: boolean;
   constructor(private user: DatosUsuarioService, private router: Router) { }
 
   ngOnInit() {
+    if (this.estado == '0') {
+      this.mostrarEstado = false;
+    } else {
+      this.mostrarEstado = true;
+    }
   }
 
   hablar() {
