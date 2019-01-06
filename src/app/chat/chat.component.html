@@ -1,0 +1,22 @@
+<div class="login">
+  <button mat-raised-button color="primary" (click)="atras()" class="boton">atras</button>
+  webchat
+  <button mat-raised-button color="primary" (click)="cerrarSesion()" class="boton">Cerrar Sesion</button>
+  <p>registrado como {{usuario}}</p>
+</div>
+<!--<cdk-virtual-scroll-viewport style="height: 400px" itemSize="10" >
+  <div *cdkVirtualFor="let cv of conversacion">
+    {{cv.nombre}} {{cv.fecha}} {{cv.texto2}}
+  </div>
+</cdk-virtual-scroll-viewport>-->
+<textarea rows="20" cols="50" class="pre-scrollable form-control" #conversacionArea style="resize: none;" disabled>{{texto}}
+</textarea>
+
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="mensaje" placeholder="mensaje" type="text" autocomplete="off">
+</mat-form-field>
+<br>
+<button mat-raised-button color="primary" (click)="enviar()" class="boton">enviar</button>
+<br>
+
