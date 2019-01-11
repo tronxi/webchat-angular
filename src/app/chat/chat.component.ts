@@ -57,8 +57,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   enviar() {
     this.conex.enviarMensaje(this.usuario, this.user.id, this.mensaje).subscribe((resultado) =>{
-      this.mensaje = '';
+
     });
+    this.mensaje = '';
   }
   atras() {
     this.router.navigateByUrl('/conversacionesUsuario');
