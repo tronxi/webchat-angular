@@ -34,7 +34,6 @@ export class ConversacionesUsuarioComponent implements OnInit,  OnDestroy{
 
     this.ioConnection = this.socket.onActulizarMarcadoresMensajes()
       .subscribe((message) => {
-        console.log(message);
         this.buscar();
       });
   }

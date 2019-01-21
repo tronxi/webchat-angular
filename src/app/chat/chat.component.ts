@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.usuario = this.user.usuario;
     this.persona = this.user.persona;
+    this.mensaje = '';
     this.conex.crearConversacion(this.usuario, this.persona).subscribe((resultado: string) => {
       this.user.id = resultado;
       console.log(this.user.id);
@@ -77,9 +78,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
   enviar() {
-    this.conex.enviarMensaje(this.usuario, this.user.id, this.mensaje).subscribe((resultado) =>{
+    if (this.mensaje != '') {
+      this.conex.enviarMensaje(this.usuario, this.user.id, this.mensaje).subscribe((resultado) => {
 
-    });
+      });
+    }
     this.mensaje = '';
   }
   atras() {

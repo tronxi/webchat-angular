@@ -11,6 +11,7 @@ export class SocketService {
 
   public initSocket(): void {
     this.socket = io('http://raspberrytronxi.ddns.net:8000', {path: '/webchat_server_node_socket'});
+    //this.socket = io('http://192.168.0.5:8000', {path: '/webchat_server_node_socket'});
   }
 
   public unirse(sala): void {
