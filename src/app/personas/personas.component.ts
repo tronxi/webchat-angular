@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatosUsuarioService} from '../../datos-usuario.service';
 import {ConexionNodeService} from '../../conexion-node.service';
 import {Router} from '@angular/router';
+import {SocketService} from '../../socket.service';
 
 @Component({
   selector: 'app-personas',
@@ -11,21 +12,28 @@ import {Router} from '@angular/router';
 export class PersonasComponent implements OnInit, OnDestroy {
   usuario: string;
   conversaciones = null;
-  actualizar = null;
   tam: number;
-  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService, private router: Router) { }
+  ioConnection: any;
+
+  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService,
+              private router: Router, private socket: SocketService) { }
 
   ngOnInit() {
     this.usuario = this.user.usuario;
-    this.actualizar = setInterval(() => {
-      this.buscar();
-    }, 500);
     this.buscar();
+    this.initConnection();
   }
   ngOnDestroy() {
-    if (this.actualizar) {
-      clearInterval(this.actualizar);
-    }
+
+  }
+
+  private initConnection(): void {
+    this.socket.initSocket();
+
+    this.ioConnection = this.socket.onNuevoUsario()
+      .subscribe((message) => {
+        this.buscar();
+      });
   }
   buscar() {
     this.conex.personas(this.usuario).subscribe((resultado) => {
@@ -34,7 +42,7 @@ export class PersonasComponent implements OnInit, OnDestroy {
     this.tamPantalla();
   }
   tamPantalla() {
-    if (screen.width <= 350){
+    if (screen.width <= 350) {
       this.tam = 1;
     } else if (screen.width > 350 && screen.width < 450) {
       this.tam = 2;

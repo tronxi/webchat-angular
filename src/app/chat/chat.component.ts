@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DatosUsuarioService} from '../../datos-usuario.service';
 import {ConexionNodeService} from '../../conexion-node.service';
+import {SocketService} from '../../socket.service';
 import {Router} from '@angular/router';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
@@ -16,26 +17,48 @@ export class ChatComponent implements OnInit, OnDestroy {
   mensaje: string;
   texto: string;
   conversacion = null;
-  actualizar = null;
   bajar = null;
+  ioConnection: any;
 
-  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService, private router: Router) { }
+  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService,
+              private router: Router, private socket: SocketService) { }
 
   ngOnInit() {
     this.usuario = this.user.usuario;
     this.persona = this.user.persona;
     this.conex.crearConversacion(this.usuario, this.persona).subscribe((resultado: string) => {
       this.user.id = resultado;
+      console.log(this.user.id);
       this.bajar = setInterval(() => {
         this.bajarF();
       }, 500);
-      this.actualizar = setInterval(() => {
+      this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
+        this.conversacion = resultado2;
+        this.codificarTexto();
+      });
+      this.initConnection();
+    });
+  }
+
+  private initConnection(): void {
+    this.socket.initSocket();
+
+    this.ioConnection = this.socket.onActualizarMensajes()
+      .subscribe((message) => {
         this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
           this.conversacion = resultado2;
           this.codificarTexto();
         });
-      }, 500);
-    });
+      });
+
+    this.socket.onEvent('connect')
+      .subscribe(() => {
+        this.socket.unirse(this.user.id);
+      });
+
+    this.socket.onEvent('disconnect')
+      .subscribe(() => {
+      });
   }
   codificarTexto() {
     this.texto = '';
@@ -48,9 +71,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.area.nativeElement.scrollTop = this.area.nativeElement.scrollHeight;
   }
   ngOnDestroy() {
-    if (this.actualizar) {
-      clearInterval(this.actualizar);
-    }
+    this.socket.salir(this.user.id);
     if (this.bajar) {
       clearInterval(this.bajar);
     }

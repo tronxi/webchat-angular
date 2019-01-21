@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {DatosUsuarioService} from '../../datos-usuario.service';
 import {ConexionNodeService} from '../../conexion-node.service';
 import { Router } from '@angular/router';
+import {SocketService} from '../../socket.service';
 
 @Component({
   selector: 'app-conversaciones-usuario',
@@ -14,20 +15,29 @@ export class ConversacionesUsuarioComponent implements OnInit,  OnDestroy{
   conversaciones = null;
   actualizar = null;
   tam: number;
-  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService, private router: Router) { }
+  ioConnection: any;
+  constructor(private user: DatosUsuarioService, private conex: ConexionNodeService,
+              private router: Router, private socket: SocketService) { }
 
   ngOnInit() {
     this.usuario = this.user.usuario;
-    this.actualizar = setInterval(() => {
-      this.buscar();
-    }, 500);
     this.buscar();
+    this.initConnection();
   }
     ngOnDestroy() {
       if (this.actualizar) {
         clearInterval(this.actualizar);
       }
     }
+  private initConnection(): void {
+    this.socket.initSocket();
+
+    this.ioConnection = this.socket.onActulizarMarcadoresMensajes()
+      .subscribe((message) => {
+        console.log(message);
+        this.buscar();
+      });
+  }
   buscar() {
     this.conex.conversacionUsuario(this.usuario).subscribe((resultado) => {
       this.conversaciones = resultado;
@@ -35,7 +45,7 @@ export class ConversacionesUsuarioComponent implements OnInit,  OnDestroy{
     this.tamPantalla();
   }
   tamPantalla() {
-    if (screen.width <= 350){
+    if (screen.width <= 350) {
       this.tam = 1;
     } else if (screen.width > 350 && screen.width < 450) {
       this.tam = 2;
