@@ -3,9 +3,14 @@
   webchat
   <button mat-raised-button color="primary" (click)="cerrarSesion()" class="boton">Cerrar Sesion</button>
   <p>registrado como {{usuario}}</p>
-  <mat-grid-list cols="{{tam}}">
+  <!--<mat-grid-list cols="{{tam}}">
     <mat-grid-tile *ngFor="let con of conversaciones">
       <app-conversacion nombre="{{con.nombre}}" estado=""></app-conversacion>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>-->
+  <div class="padre">
+    <span  *ngFor="let con of conversaciones">
+      <app-conversacion nombre="{{con.nombre}}" estado=""></app-conversacion>
+    </span>
+  </div>
 </div>

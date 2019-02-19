@@ -39,7 +39,7 @@ export class PersonasComponent implements OnInit, OnDestroy {
     this.conex.personas(this.usuario).subscribe((resultado) => {
       this.conversaciones = resultado;
     });
-    this.tamPantalla();
+    //this.tamPantalla();
   }
   tamPantalla() {
     if (screen.width <= 350) {
