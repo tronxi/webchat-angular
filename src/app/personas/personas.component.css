@@ -10,6 +10,6 @@ div.padre {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-content: space-around;
+  justify-content: flex-start;
+  align-content: center;
 }
