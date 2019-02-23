@@ -1,11 +1,11 @@
 <div class="login">
   <h1>WebChat</h1>
   <mat-form-field>
-    <input matInput [(ngModel)]="usuario" placeholder="usuario" type="text">
+    <input matInput [(ngModel)]="usuario" placeholder="usuario" type="text" (keydown.enter)="registro()">
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput [(ngModel)]="pass" placeholder="contraseña" type="password">
+    <input matInput [(ngModel)]="pass" placeholder="contraseña" type="password" (keydown.enter)="registro()">
   </mat-form-field>
   <br>
   <br>

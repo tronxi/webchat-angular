@@ -14,7 +14,7 @@
 
 <br>
 <mat-form-field>
-  <input matInput [(ngModel)]="mensaje" placeholder="mensaje" type="text" autocomplete="off">
+  <input matInput [(ngModel)]="mensaje" placeholder="mensaje" type="text" autocomplete="off" (keydown.enter)="enviar()">
 </mat-form-field>
 <br>
 <button mat-raised-button color="primary" (click)="enviar()" class="boton">enviar</button>
