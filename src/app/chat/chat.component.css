@@ -5,3 +5,55 @@
   padding-bottom: 40px;
   background-color: #f5f5f5;
 }
+div.contenedor_mensajes {
+  margin: 0 auto;
+  height: 60vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+div.mensaje {
+  margin: 10px;
+  display: flex;
+
+}
+div.mensaje-propio{
+  justify-content: flex-end;
+}
+
+div.mensaje-otro{
+  justify-content: flex-start;
+}
+div.fondo{
+  padding: 10px;
+  border-radius: 10px;
+}
+div.fondo-propio{
+  text-align: end;
+  background-color: #DFFFA9;
+}
+div.fondo-otro{
+  text-align: start;
+  background-color: #CAFF70;
+}
+
+.casilla-mensaje{
+  width: 80%;
+}
+
+@media screen and (max-width: 360px) {
+  div.contenedor_mensajes {
+    height: 50vh;
+  }
+}
+@media screen and (min-width: 650px) {
+  div.contenedor_mensajes {
+    width: 80%;
+  }
+}
+@media screen and (min-width: 760px) {
+  div.contenedor_mensajes {
+    width: 60%;
+  }
+}

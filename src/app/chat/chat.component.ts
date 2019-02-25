@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.conex.crearConversacion(this.usuario, this.persona).subscribe((resultado: string) => {
       this.user.id = resultado;
       console.log(this.user.id);
-      this.bajar = setInterval(() => {
+      this.bajar = setTimeout(() => {
         this.bajarF();
       }, 500);
       this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
@@ -49,6 +49,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
           this.conversacion = resultado2;
           this.codificarTexto();
+          this.bajar = setTimeout(() => {
+            this.bajarF();
+          }, 500);
         });
       });
 
@@ -73,9 +76,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.socket.salir(this.user.id);
-    if (this.bajar) {
-      clearInterval(this.bajar);
-    }
   }
   enviar() {
     if (this.mensaje != '') {
@@ -84,6 +84,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
     }
     this.mensaje = '';
+    this.bajar = setTimeout(() => {
+      this.bajarF();
+    }, 500);
   }
   atras() {
     this.router.navigateByUrl('/conversacionesUsuario');

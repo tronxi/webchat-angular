@@ -1,13 +1,10 @@
 <div class="login">
-  <button mat-raised-button color="primary" (click)="buscarTodas()" class="boton">Buscar</button>
-  webchat
-  <button mat-raised-button color="primary" (click)="cerrarSesion()" class="boton">Cerrar Sesion</button>
-  <p>registrado como {{usuario}}</p>
-  <!--<mat-grid-list cols="{{tam}}">
-    <mat-grid-tile *ngFor="let con of conversaciones">
-      <app-conversacion nombre="{{con.nombre}}" estado="{{con.estado}}"></app-conversacion>
-    </mat-grid-tile>
-  </mat-grid-list>-->
+  <div>
+    <button mat-raised-button color="primary" (click)="buscarTodas()" class="boton">Buscar</button>
+    webchat
+    <button mat-raised-button color="primary" (click)="cerrarSesion()" class="boton">Cerrar Sesion</button>
+    <p>registrado como {{usuario}}</p>
+  </div>
   <div class="padre">
     <span  *ngFor="let con of conversaciones">
       <app-conversacion nombre="{{con.nombre}}" estado="{{con.estado}}"></app-conversacion>
