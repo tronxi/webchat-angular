@@ -27,11 +27,8 @@
   </span>
 </div>
 
-<br>
 <mat-form-field class="casilla-mensaje">
   <input matInput [(ngModel)]="mensaje" placeholder="mensaje" type="text" autocomplete="off" (keydown.enter)="enviar()">
 </mat-form-field>
-<br>
 <button mat-raised-button color="primary" (click)="enviar()" class="boton">enviar</button>
-<br>
 

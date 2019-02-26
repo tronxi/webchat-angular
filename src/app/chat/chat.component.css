@@ -42,7 +42,7 @@ div.fondo-otro{
 }
 
 .casilla-mensaje{
-  width: 80%;
+  width: 40%;
 }
 @media screen and (max-height: 735px) {
   div.contenedor_mensajes {
