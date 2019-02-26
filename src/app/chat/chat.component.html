@@ -2,7 +2,6 @@
   <button mat-raised-button color="primary" (click)="atras()" class="boton">atras</button>
   webchat
   <button mat-raised-button color="primary" (click)="cerrarSesion()" class="boton">Cerrar Sesion</button>
-  <p>registrado como {{usuario}}</p>
 </div>
 <div class="contenedor_mensajes" #conversacionArea>
   <span *ngFor="let ms of conversacion">
@@ -10,18 +9,18 @@
     <ng-template #mensajePropio>
         <div class="mensaje mensaje-propio">
           <div class="fondo fondo-propio">
-            {{ms.nombre}}<br>
+            <strong>{{ms.nombre}}</strong><br>
             {{ms.texto2}}<br>
-            {{ms.fecha}}
+            <i>{{ms.fecha}}</i>
           </div>
         </div>
     </ng-template>
     <ng-template #mensajeOtro>
         <div class="mensaje mensaje-otro">
           <div class="fondo fondo-otro">
-            {{ms.nombre}}<br>
+          <strong>{{ms.nombre}}</strong><br>
             {{ms.texto2}}<br>
-            {{ms.fecha}}
+            <i>{{ms.fecha}}</i>
           </div>
         </div>
     </ng-template>

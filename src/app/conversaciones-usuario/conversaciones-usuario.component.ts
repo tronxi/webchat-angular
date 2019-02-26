@@ -14,7 +14,6 @@ export class ConversacionesUsuarioComponent implements OnInit,  OnDestroy{
   usuario: string;
   conversaciones = null;
   actualizar = null;
-  tam: number;
   ioConnection: any;
   constructor(private user: DatosUsuarioService, private conex: ConexionNodeService,
               private router: Router, private socket: SocketService) { }
@@ -41,21 +40,8 @@ export class ConversacionesUsuarioComponent implements OnInit,  OnDestroy{
     this.conex.conversacionUsuario(this.usuario).subscribe((resultado) => {
       this.conversaciones = resultado;
     });
-    //this.tamPantalla();
   }
-  tamPantalla() {
-    if (screen.width <= 350) {
-      this.tam = 1;
-    } else if (screen.width > 350 && screen.width < 450) {
-      this.tam = 2;
-    } else if (screen.width >= 450 && screen.width <= 1024) {
-      this.tam = 4;
-    } else if (screen.width > 1024 && screen.width < 1500) {
-      this.tam = 5;
-    } else {
-      this.tam = 6;
-    }
-  }
+
   buscarTodas() {
     this.router.navigateByUrl('/personas');
   }

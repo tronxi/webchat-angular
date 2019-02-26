@@ -7,7 +7,7 @@
 }
 div.contenedor_mensajes {
   margin: 0 auto;
-  height: 60vh;
+  height: 70vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -29,6 +29,9 @@ div.fondo{
   padding: 10px;
   border-radius: 10px;
 }
+p {
+  max-width: 200px;
+}
 div.fondo-propio{
   text-align: end;
   background-color: #DFFFA9;
@@ -41,10 +44,14 @@ div.fondo-otro{
 .casilla-mensaje{
   width: 80%;
 }
-
+@media screen and (max-height: 735px) {
+  div.contenedor_mensajes {
+    height: 60vh;
+  }
+}
 @media screen and (max-width: 360px) {
   div.contenedor_mensajes {
-    height: 50vh;
+    height: 55vh;
   }
 }
 @media screen and (min-width: 650px) {
