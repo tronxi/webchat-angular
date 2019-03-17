@@ -15,11 +15,11 @@ export class SocketService {
   }
 
   public unirse(sala): void {
-    this.socket.emit('union', sala);
+    this.socket.emit('union', {id: sala});
   }
 
   public salir(sala): void {
-    this.socket.emit('salir', sala);
+    this.socket.emit('salir', {id: sala});
   }
 
   public onActualizarMensajes(): Observable<any> {
