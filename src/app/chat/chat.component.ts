@@ -3,7 +3,6 @@ import {DatosUsuarioService} from '../../datos-usuario.service';
 import {ConexionNodeService} from '../../conexion-node.service';
 import {SocketService} from '../../socket.service';
 import {Router} from '@angular/router';
-import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-chat',
@@ -15,7 +14,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   usuario: string;
   persona: string;
   mensaje: string;
-  texto: string;
   conversacion = null;
   bajar = null;
   ioConnection: any;
@@ -29,13 +27,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.mensaje = '';
     this.conex.crearConversacion(this.usuario, this.persona).subscribe((resultado: string) => {
       this.user.id = resultado;
-      console.log(this.user.id);
       this.bajar = setTimeout(() => {
         this.bajarF();
       }, 500);
       this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
         this.conversacion = resultado2;
-        this.codificarTexto();
       });
       this.initConnection();
     });
@@ -48,7 +44,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe((message) => {
         this.conex.mostrarMensajes(this.usuario, this.user.id).subscribe((resultado2) => {
           this.conversacion = resultado2;
-          this.codificarTexto();
           this.bajar = setTimeout(() => {
             this.bajarF();
           }, 500);
@@ -64,13 +59,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe(() => {
       });
   }
-  codificarTexto() {
-    this.texto = '';
-    for(let i = 0; i < this.conversacion.length; i++) {
-      this.texto += this.conversacion[i].nombre + ' ' + this.conversacion[i].fecha +
-        ' ' + this.conversacion[i].texto2 + '\n';
-    }
-  }
+
   bajarF() {
     this.area.nativeElement.scrollTop = this.area.nativeElement.scrollHeight;
   }
